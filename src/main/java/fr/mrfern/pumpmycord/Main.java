@@ -46,4 +46,9 @@ public class Main extends Plugin {
 	public void setMisterP(MisterPorg misterP) {
 		this.misterP = misterP;
 	}
+	
+	@Override
+	public void onDisable() {
+		getMisterP().close();
+	}
 }
