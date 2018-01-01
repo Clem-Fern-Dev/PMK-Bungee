@@ -18,7 +18,7 @@ public class PorgListener implements EventListener{
 	
 	@Override
 	public void onEvent(Event event) {
-		if(event instanceof ReadyEvent) {
+		/*if(event instanceof ReadyEvent) {
 			
 			List<TextChannel> chanList = event.getJDA().getTextChannels();	
 			for (TextChannel textChannel : chanList) {
@@ -26,11 +26,13 @@ public class PorgListener implements EventListener{
 				main.getLogger().info(textChannel.getName());
 			}
 			
-			main.defaultBorgChan = main.hashChannel.get("");
+			main.defaultBorgChan = main.hashChannel.get("misterborgs-place");
+			
+			main.defaultBorgChan.sendMessage("start").complete();
 			
 			//main.InitBungeeMessage();
 			
-		}		
+		}	*/	
 	}
 
 }
