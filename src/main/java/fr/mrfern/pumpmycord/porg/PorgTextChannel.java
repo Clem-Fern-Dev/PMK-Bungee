@@ -1,6 +1,7 @@
 package fr.mrfern.pumpmycord.porg;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import net.dv8tion.jda.core.JDA;
@@ -24,6 +25,8 @@ public class PorgTextChannel implements TextChannel{
 
 	private TextChannel textChannel;
 	private boolean isOK;
+	
+	private HashMap<String, PorgMessage> hashPorg;
 
 	
 	public PorgTextChannel(MisterPorg misterPorg, String channelID) {
@@ -34,9 +37,14 @@ public class PorgTextChannel implements TextChannel{
 			isOK = false;
 		}
 	}
-
-	public RestAction<List<Message>> test() {
+	
+	@Override
+	public RestAction<List<Message>> getPinnedMessages(){
 		return textChannel.getPinnedMessages();
+	}
+	
+	public List<Message> getListPinnedMessages() {
+		return getPinnedMessages().complete();
 	}
 	
 	public TextChannel getTextChannel() {
