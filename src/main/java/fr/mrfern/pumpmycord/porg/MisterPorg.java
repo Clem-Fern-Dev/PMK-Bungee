@@ -61,6 +61,15 @@ public class MisterPorg {
 		
 		
 	}
+	
+	private void close() {
+		jda.shutdown();		
+	}
+	
+	private void forceClose() {
+		jda.shutdownNow();		
+	}
+
 
 	public MisterPorg addListener(Object... listeners) {
 		jda.addEventListener(listeners);
