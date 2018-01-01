@@ -261,4 +261,8 @@ public class PorgTextChannel implements TextChannel{
 		this.isOK = isOK;
 	}
 
+	/*public void addPorgMessage(String server,ServerInfo serverInfo,Message message) {
+		hashPorg.put(,message);	
+	}*/
+
 }
