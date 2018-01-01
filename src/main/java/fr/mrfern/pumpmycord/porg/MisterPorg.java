@@ -8,6 +8,7 @@ import fr.mrfern.pumpmycord.Main;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 public class MisterPorg {
@@ -59,8 +60,11 @@ public class MisterPorg {
 		}		
 	}
 	
-	private void initDefaultChannel(PorgTextChannel porgTextChannel) {
+	private void initDefaultChannel(PorgTextChannel porgTextChannel) {	
 		
+		for (Message message : getPorgTextChannel().getListPinnedMessages()) {
+			
+		}
 		
 	}
 	
