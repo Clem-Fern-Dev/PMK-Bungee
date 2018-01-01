@@ -27,7 +27,12 @@ public class PorgTextChannel implements TextChannel{
 
 	
 	public PorgTextChannel(MisterPorg misterPorg, String channelID) {
-		isOK = false;
+		try {
+			textChannel = misterPorg.getJda().getTextChannelById(channelID);
+			isOK = true;
+		} catch (Exception e) {
+			isOK = false;
+		}
 	}
 
 	public RestAction<List<Message>> test() {
