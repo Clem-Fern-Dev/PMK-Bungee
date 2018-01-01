@@ -48,12 +48,14 @@ public class MisterPorg {
 			
 			if(porgTextChannel == null) {
 				main.getLogger().warning("[ PumpMyCord ] JDA PorgTextChannel initialisation ... echec !");
+				close();
 			}else {
 				main.getLogger().info("[ PumpMyCord ] JDA PorgTextChannel initialisation ... succes !");
 				initDefaultChannel(porgTextChannel);
 			}
 		}else {
 			main.getLogger().warning("[ PumpMyCord ] JDA communication ... echec !");
+			close();
 		}		
 	}
 	
