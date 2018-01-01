@@ -44,6 +44,11 @@ public class MisterPorg {
 		}
 		
 	}
+	
+	public MisterPorg addListener(Object... listeners) {
+		jda.addEventListener(listeners);
+		return this;
+	}
 
 	public JDA getJda() {
 		return jda;
