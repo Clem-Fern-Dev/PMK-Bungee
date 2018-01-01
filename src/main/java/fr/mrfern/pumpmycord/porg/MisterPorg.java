@@ -1,5 +1,7 @@
 package fr.mrfern.pumpmycord.porg;
 
+import java.util.HashMap;
+
 import javax.security.auth.login.LoginException;
 
 //this.getJda().getTextChannelById("387326167499276292")
@@ -61,6 +63,8 @@ public class MisterPorg {
 	}
 	
 	private void initDefaultChannel(PorgTextChannel porgTextChannel) {	
+		
+		HashMap<String, PorgMessage> hashPorg = new HashMap<>();
 		
 		for (Message message : getPorgTextChannel().getListPinnedMessages()) {
 			
