@@ -64,7 +64,7 @@ public class MisterPorg {
 		
 	}
 	
-	private void close() {
+	public void close() {
 		jda.shutdown();		
 	}
 	
