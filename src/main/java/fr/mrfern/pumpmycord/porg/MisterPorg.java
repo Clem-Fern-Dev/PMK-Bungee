@@ -42,20 +42,20 @@ public class MisterPorg {
 		}
 		
 		if(isOK) {
-			main.getLogger().info("[ PumpMyCord ] JDA communication ... succes !");	
+			main.getLogger().info(" JDA communication ... succes !");	
 			
 			porgTextChannel = new PorgTextChannel(this, channelID);
 			
-			if(porgTextChannel == null) {
-				main.getLogger().warning("[ PumpMyCord ] JDA PorgTextChannel initialisation ... echec !");
-				close();
+			if(!porgTextChannel.isOK()) {
+				main.getLogger().severe(" JDA PorgTextChannel initialisation ... echec !");
+				forceClose();
 			}else {
-				main.getLogger().info("[ PumpMyCord ] JDA PorgTextChannel initialisation ... succes !");
+				main.getLogger().info(" JDA PorgTextChannel initialisation ... succes !");
 				initDefaultChannel(porgTextChannel);
 			}
 		}else {
-			main.getLogger().warning("[ PumpMyCord ] JDA communication ... echec !");
-			close();
+			main.getLogger().severe(" JDA communication ... echec !");
+			forceClose();
 		}		
 	}
 	
@@ -65,10 +65,12 @@ public class MisterPorg {
 	}
 	
 	public void close() {
+		main.getLogger().warning(" JDA shutdown !");
 		jda.shutdown();		
 	}
 	
 	private void forceClose() {
+		main.getLogger().severe(" JDA force shutodown !");
 		jda.shutdownNow();		
 	}
 

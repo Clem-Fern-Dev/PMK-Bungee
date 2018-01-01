@@ -15,17 +15,8 @@ public class Main extends Plugin {
 	public void onLoad() {
 		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));
 		
-		getMisterP();
 		
 		
-		
-		defaultBorgChan.sendMessage("#µproxy-serverµ#").complete().pin().complete();
-		defaultBorgChan.sendMessage("__                                                                                                                                                                                                                                                                                              __").complete();
-		defaultBorgChan.sendMessage("#µlobbyµ#").complete().pin().complete();
-		defaultBorgChan.sendMessage("__                                                                                                                                                                                                                                                                                              __").complete();
-		defaultBorgChan.sendMessage("#µragna1µ#").complete().pin().complete();
-		defaultBorgChan.sendMessage("__                                                                                                                                                                                                                                                                                              __").complete();
-		defaultBorgChan.sendMessage("#µsnoozeµ# @everyone").complete().pin().complete();
 	}
 	
 	@Override
@@ -49,6 +40,7 @@ public class Main extends Plugin {
 	
 	@Override
 	public void onDisable() {
+		getLogger().info(" OnDisable method call !");
 		getMisterP().close();
 	}
 }

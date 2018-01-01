@@ -23,10 +23,11 @@ import net.dv8tion.jda.core.requests.restaction.PermissionOverrideAction;
 public class PorgTextChannel implements TextChannel{
 
 	private TextChannel textChannel;
+	private boolean isOK;
 
 	
 	public PorgTextChannel(MisterPorg misterPorg, String channelID) {
-		// TODO Auto-generated constructor stub
+		isOK = false;
 	}
 
 	public RestAction<List<Message>> test() {
@@ -237,6 +238,14 @@ public class PorgTextChannel implements TextChannel{
 	public boolean canTalk(Member member) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean isOK() {
+		return isOK;
+	}
+
+	public void setOK(boolean isOK) {
+		this.isOK = isOK;
 	}
 
 }
