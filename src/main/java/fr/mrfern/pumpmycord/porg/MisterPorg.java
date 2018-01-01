@@ -2,6 +2,8 @@ package fr.mrfern.pumpmycord.porg;
 
 import javax.security.auth.login.LoginException;
 
+//this.getJda().getTextChannelById("387326167499276292")
+
 import fr.mrfern.pumpmycord.Main;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -13,14 +15,16 @@ public class MisterPorg {
 	private JDA jda;
 	private boolean isOK;
 	private Main main;
+	private PorgTextChannel porgTextChannel;
+	
+	
 
-	public MisterPorg(Main m,String token) {
+	public MisterPorg(Main m,String token,String channelID) {
 		isOK = false;
 		main = m;
 		
 		try {
 			jda = new JDABuilder(AccountType.BOT).setToken(token).buildBlocking();
-			
 			isOK = true;
 			
 		} catch (LoginException e) {
@@ -38,13 +42,26 @@ public class MisterPorg {
 		}
 		
 		if(isOK) {
-			main.getLogger().info("[ PumpMyCord ] JDA communication ... succes !");
+			main.getLogger().info("[ PumpMyCord ] JDA communication ... succes !");	
+			
+			porgTextChannel = new PorgTextChannel(this, channelID);
+			
+			if(porgTextChannel == null) {
+				main.getLogger().warning("[ PumpMyCord ] JDA PorgTextChannel initialisation ... echec !");
+			}else {
+				main.getLogger().info("[ PumpMyCord ] JDA PorgTextChannel initialisation ... succes !");
+				initDefaultChannel(porgTextChannel);
+			}
 		}else {
 			main.getLogger().warning("[ PumpMyCord ] JDA communication ... echec !");
-		}
-		
+		}		
 	}
 	
+	private void initDefaultChannel(PorgTextChannel porgTextChannel) {
+		
+		
+	}
+
 	public MisterPorg addListener(Object... listeners) {
 		jda.addEventListener(listeners);
 		return this;
@@ -72,6 +89,14 @@ public class MisterPorg {
 
 	public void setMain(Main main) {
 		this.main = main;
+	}
+
+	public PorgTextChannel getPorgTextChannel() {
+		return porgTextChannel;
+	}
+
+	public void setPorgTextChannel(PorgTextChannel porgTextChannel) {
+		this.porgTextChannel = porgTextChannel;
 	}
 	
 }
