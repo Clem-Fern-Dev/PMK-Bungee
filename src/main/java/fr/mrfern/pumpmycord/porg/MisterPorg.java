@@ -1,10 +1,5 @@
 package fr.mrfern.pumpmycord.porg;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.security.auth.login.LoginException;
 
 //this.getJda().getTextChannelById("387326167499276292")
@@ -13,9 +8,7 @@ import fr.mrfern.pumpmycord.Main;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
-import net.md_5.bungee.api.config.ServerInfo;
 
 public class MisterPorg {
 
@@ -48,67 +41,31 @@ public class MisterPorg {
 			e.printStackTrace();
 		}
 		
-		if(isOK) {
-			main.getLogger().info(" JDA communication ... succes !");	
-			
-			porgTextChannel = new PorgTextChannel(this, channelID);
-			porgTextChannel.sendMessage("Bungee started").complete();
-			
-			if(!porgTextChannel.isOK()) {
-				main.getLogger().severe(" JDA PorgTextChannel initialisation ... echec !");
-				forceClose();
-			}else {
-				main.getLogger().info(" JDA PorgTextChannel initialisation ... succes !");
-				initDefaultChannel(porgTextChannel);
-			}
+		if(jda == null) {
+			System.out.println("erreur jda null");
 		}else {
-			main.getLogger().severe(" JDA communication ... echec !");
-			forceClose();
+			if(isOK) {
+				main.getLogger().info(" JDA communication ... succes !");	
+				
+				porgTextChannel = new PorgTextChannel(this, channelID);
+				porgTextChannel.sendMessage("Bungee restarted").complete();
+				porgTextChannel.sendMessage(new Exception("error null").toString()).complete();
+				
+				
+				/*if(!porgTextChannel.isOK()) {
+					main.getLogger().severe(" JDA PorgTextChannel initialisation ... echec !");
+					forceClose();
+				}else {
+					main.getLogger().info(" JDA PorgTextChannel initialisation ... succes !");
+					//initDefaultChannel(porgTextChannel);
+				}*/
+			}else {
+				main.getLogger().severe(" JDA communication ... echec !");
+				forceClose();
+			}
 		}		
 	}
 	
-	private void initDefaultChannel(PorgTextChannel porgTextChannel) {
-		
-		/*List<Message> messageList = porgTextChannel.getListPinnedMessages();
-		
-		if(messageList.size() < 1) {
-		
-		}
-			// creation du message bungee
-			
-			// création du message par serveur
-			Map<String, ServerInfo> hashServer = main.getProxy().getServers();
-			
-			if(!(hashServer.size() < 1)) {
-			
-				for (Entry<String, ServerInfo> server : hashServer.entrySet()) {
-					
-					boolean messageOK = false;
-					messageList = porgTextChannel.getListPinnedMessages();
-					
-					if(messageList.size() < 1) {
-						// création du message par serveur
-					}
-					
-					for (Message message : messageList) {
-						
-						if(message.getContent().startsWith("#µ" + server.getKey() + "#µ")){
-							
-							messageOK = true;
-							
-							//porgTextChannel.addPorgMessage(message);
-							break;
-						}
-					}
-					
-					if(!messageOK) {
-						porgTextChannel.sendMessage("#µ" + server.getKey() + "#µ").complete();
-					}			
-				}
-			}
-		}*/
-		
-	}
 	
 	public void close() {
 		main.getLogger().warning(" JDA shutdown !");
