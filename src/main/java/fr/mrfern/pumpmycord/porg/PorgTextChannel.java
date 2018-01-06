@@ -1,7 +1,6 @@
 package fr.mrfern.pumpmycord.porg;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import net.dv8tion.jda.core.JDA;
@@ -10,6 +9,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Invite;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.PermissionOverride;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -25,17 +25,45 @@ public class PorgTextChannel implements TextChannel{
 
 	private TextChannel textChannel;
 	private boolean isOK;
-	
-	private HashMap<String, PorgMessage> hashPorg;
-
+	private JDA jda;
 	
 	public PorgTextChannel(MisterPorg misterPorg, String channelID) {
 		try {
 			textChannel = misterPorg.getJda().getTextChannelById(channelID);
 			isOK = true;
 		} catch (Exception e) {
+			System.out.println("error textchannel");
 			isOK = false;
 		}
+	}
+	
+	public RestAction<Message> sendPorgMessage(MessageEmbed embed) {
+		return textChannel.sendMessage(embed);
+	}
+	
+	public RestAction<Message> sendPorgMessage(Message msg) {
+		return textChannel.sendMessage(msg);
+	}
+	
+	public RestAction<Message> sendPorgMessage(String text) {
+		// TODO Auto-generated method stub
+		return textChannel.sendMessage(text);
+	}
+	
+	@Override
+	public RestAction<Message> sendMessage(MessageEmbed embed) {
+		return textChannel.sendMessage(embed);
+	}
+	
+	@Override
+	public RestAction<Message> sendMessage(Message msg) {
+		return textChannel.sendMessage(msg);
+	}
+	
+	@Override
+	public RestAction<Message> sendMessage(String text) {
+		// TODO Auto-generated method stub
+		return textChannel.sendMessage(text);
 	}
 	
 	@Override
@@ -261,8 +289,11 @@ public class PorgTextChannel implements TextChannel{
 		this.isOK = isOK;
 	}
 
-	/*public void addPorgMessage(String server,ServerInfo serverInfo,Message message) {
-		hashPorg.put(,message);	
-	}*/
+	public JDA getJda() {
+		return jda;
+	}
 
+	public void setJda(JDA jda) {
+		this.jda = jda;
+	}
 }
