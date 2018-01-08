@@ -26,9 +26,10 @@ public class Main extends Plugin {
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
         
-        // event
-        
+        // event discord        
         getProxy().getPluginManager().registerListener(this, new PorgServerEvent());
+        // event Messaging plugin
+        getProxy().getPluginManager().registerListener(this, new MessagingService());
     }
 
 	public static MisterPorg getMisterP() {
