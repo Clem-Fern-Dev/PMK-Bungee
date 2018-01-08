@@ -24,8 +24,19 @@ public class PorgServerEvent implements Listener {
 			
 		PorgTextChannel porgChan = Main.getMisterP().getPorgTextChannel();
 			
-		porgChan.sendPorgMessage("@everyone " + e.getTarget().getName() + " est hors-ligne ! \n Il sera à nouveau disponible dans les plus brefs délais. Restez informé des nouveautés et mise à jour sur le forum/discord/site !").complete();
+		porgChan.sendPorgMessage("@everyone Le réseau PumpMyKins est en ligne et opérationnel ! \n Rejoingnez nous en vous connectant via pumpmykins.eu , nous vous remercions pour votre patience !").complete();
 			
+	}
+	
+	public void OnProxyStartEvent(MisterPorg misterP) {
+		
+	}
+	
+	public void OnProxyStopEvent(MisterPorg misterP) {
+		
+		PorgTextChannel porgChan = misterP.getPorgTextChannel();
+		
+		porgChan.sendPorgMessage("@everyone Le réseau PumpMyKins est hors-ligne ! \n Toute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mise à jour sur le forum/discord/site !").complete();
 	}
 	
 	
