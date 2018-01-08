@@ -30,6 +30,9 @@ public class Main extends Plugin {
         getProxy().getPluginManager().registerListener(this, new PorgServerEvent());
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
+        
+        new PorgServerEvent().OnProxyStartEvent(getMisterP());
+        
     }
 
 	public static MisterPorg getMisterP() {
@@ -42,6 +45,8 @@ public class Main extends Plugin {
 	
 	@Override
 	public void onDisable() {
+		new PorgServerEvent().OnProxyStopEvent(getMisterP());
+		
 		getLogger().info(" OnDisable method call !");
 		getMisterP().close();
 	}
