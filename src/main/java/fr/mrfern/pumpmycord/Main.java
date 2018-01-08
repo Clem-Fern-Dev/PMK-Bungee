@@ -9,8 +9,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class Main extends Plugin {
     
 	public TextChannel defaultBorgChan;
-	private MisterPorg misterP;
-	
+	private static MisterPorg misterP;	
 	
 	@Override
 	public void onLoad() {
@@ -32,12 +31,12 @@ public class Main extends Plugin {
         getProxy().getPluginManager().registerListener(this, new PorgServerEvent());
     }
 
-	public MisterPorg getMisterP() {
+	public static MisterPorg getMisterP() {
 		return misterP;
 	}
 
 	public void setMisterP(MisterPorg misterP) {
-		this.misterP = misterP;
+		Main.misterP = misterP;
 	}
 	
 	@Override
