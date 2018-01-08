@@ -6,7 +6,7 @@ import fr.mrfern.pumpmycord.porg.PorgServerEvent;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.md_5.bungee.api.plugin.Plugin;
 
-public class Main extends Plugin {
+public class Main extends Plugin{
     
 	public TextChannel defaultBorgChan;
 	private static MisterPorg misterP;	
