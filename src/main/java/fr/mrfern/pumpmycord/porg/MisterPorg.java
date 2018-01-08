@@ -48,8 +48,9 @@ public class MisterPorg {
 				main.getLogger().info(" JDA communication ... succes !");	
 				
 				porgTextChannel = new PorgTextChannel(this, channelID);
-				porgTextChannel.sendMessage("Bungee restarted").complete();
-				porgTextChannel.sendMessage(new Exception("error null").toString()).complete();
+				
+				/*porgTextChannel.sendMessage("Bungee restarted").complete();
+				porgTextChannel.sendMessage(new Exception("error null").toString()).complete();*/
 				
 				
 				/*if(!porgTextChannel.isOK()) {
