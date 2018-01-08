@@ -2,6 +2,7 @@ package fr.mrfern.pumpmycord;
 
 import fr.mrfern.pumpmycord.config.Config;
 import fr.mrfern.pumpmycord.porg.MisterPorg;
+import fr.mrfern.pumpmycord.porg.PorgServerEvent;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -13,8 +14,7 @@ public class Main extends Plugin {
 	
 	@Override
 	public void onLoad() {
-		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));
-		
+		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));		
 	}
 	
 	@Override
@@ -26,6 +26,10 @@ public class Main extends Plugin {
         
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
+        
+        // event
+        
+        getProxy().getPluginManager().registerListener(this, new PorgServerEvent());
     }
 
 	public MisterPorg getMisterP() {
