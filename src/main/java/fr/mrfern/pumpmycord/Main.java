@@ -8,7 +8,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 public class Main extends Plugin{
     
-	public TextChannel defaultBorgChan;
 	private static MisterPorg misterP;	
 	
 	@Override
@@ -26,8 +25,6 @@ public class Main extends Plugin{
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
         
-        // event discord        
-        getProxy().getPluginManager().registerListener(this, new PorgServerEvent());
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
         
