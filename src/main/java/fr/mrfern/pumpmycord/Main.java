@@ -5,10 +5,12 @@ import fr.mrfern.pumpmycord.porg.MisterPorg;
 import fr.mrfern.pumpmycord.porg.PorgServerEvent;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
 
 public class Main extends Plugin{
     
-	private static MisterPorg misterP;	
+	private static MisterPorg misterP;
+	private static Config conf;	
 	
 	@Override
 	public void onLoad() {
@@ -18,17 +20,30 @@ public class Main extends Plugin{
 	@Override
     public void onEnable() {
 		
-        Config conf = Config.getConfig(this);
+		conf = Config.getConfig(this);
         
         conf.initDataFolder();
         
+        conf.initAndGetFile("config.yml");
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
         
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
         
-        new PorgServerEvent().OnProxyStartEvent(getMisterP());
+        //init discord debug mod
+        try {
+			Configuration config = conf.getConfiguration("config.yml");
+			
+			boolean b = config.getBoolean("discord.debug_mod");
+			
+			if(b) {
+				new PorgServerEvent().OnProxyStartEvent(misterP);
+			}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
     }
 
@@ -42,9 +57,24 @@ public class Main extends Plugin{
 	
 	@Override
 	public void onDisable() {
-		new PorgServerEvent().OnProxyStopEvent(getMisterP());
+		try {
+			Configuration config = conf.getConfiguration("config.yml");
+			
+			boolean b = config.getBoolean("discord.debug_mod");
+			
+			if(b) {
+				new PorgServerEvent().OnProxyStopEvent(misterP);
+			}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		getLogger().info(" OnDisable method call !");
 		getMisterP().close();
+	}
+
+	public static Config getConf() {
+		return conf;
 	}
 }

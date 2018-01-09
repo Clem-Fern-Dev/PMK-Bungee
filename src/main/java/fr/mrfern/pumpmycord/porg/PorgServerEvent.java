@@ -15,7 +15,6 @@ public class PorgServerEvent {
 	}
 	
 	public void OnProxyStopEvent(MisterPorg misterP) {
-		
 		PorgTextChannel porgChan = misterP.getPorgTextChannel();
 		
 		porgChan.sendPorgMessage("@everyone **Le réseau PumpMyKins est hors-ligne !** \nToute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mises à jours sur le forum/discord/site !").complete();
