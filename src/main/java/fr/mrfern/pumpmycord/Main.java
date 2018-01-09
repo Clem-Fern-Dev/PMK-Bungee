@@ -30,20 +30,8 @@ public class Main extends Plugin{
         
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
-        
-        //init discord debug mod
-        try {
-			Configuration config = conf.getConfiguration("config.yml");
-			
-			boolean b = config.getBoolean("discord.debug_mod");
-			
-			if(b) {
-				new PorgServerEvent().OnProxyStartEvent(misterP);
-			}			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+        new PorgServerEvent().OnProxyStartEvent(misterP);
         
     }
 
@@ -57,18 +45,8 @@ public class Main extends Plugin{
 	
 	@Override
 	public void onDisable() {
-		try {
-			Configuration config = conf.getConfiguration("config.yml");
-			
-			boolean b = config.getBoolean("discord.debug_mod");
-			
-			if(b) {
-				new PorgServerEvent().OnProxyStopEvent(misterP);
-			}			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		new PorgServerEvent().OnProxyStopEvent(misterP);
 		
 		getLogger().info(" OnDisable method call !");
 		getMisterP().close();
