@@ -3,9 +3,7 @@ package fr.mrfern.pumpmycord;
 import fr.mrfern.pumpmycord.config.Config;
 import fr.mrfern.pumpmycord.porg.MisterPorg;
 import fr.mrfern.pumpmycord.porg.PorgServerEvent;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
 
 public class Main extends Plugin{
     
@@ -27,6 +25,9 @@ public class Main extends Plugin{
         conf.initAndGetFile("config.yml");
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
+        
+        @SuppressWarnings("unused")
+		ServerManager serverM = new ServerManager(this);
         
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
