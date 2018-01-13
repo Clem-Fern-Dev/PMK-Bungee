@@ -3,12 +3,14 @@ package fr.mrfern.pumpmycord;
 import fr.mrfern.pumpmycord.config.Config;
 import fr.mrfern.pumpmycord.porg.MisterPorg;
 import fr.mrfern.pumpmycord.porg.PorgServerEvent;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class Main extends Plugin{
     
 	private static MisterPorg misterP;
 	private static Config conf;	
+	private static ProxyServer proxy;
 	
 	@Override
 	public void onLoad() {
@@ -55,5 +57,13 @@ public class Main extends Plugin{
 
 	public static Config getConf() {
 		return conf;
+	}
+
+	public static ProxyServer getProxyServer() {
+		return proxy;
+	}
+
+	public static void setProxyServer(ProxyServer proxy) {
+		Main.proxy = proxy;
 	}
 }
