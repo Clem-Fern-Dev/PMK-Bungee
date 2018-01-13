@@ -11,6 +11,7 @@ public class Main extends Plugin{
 	private static MisterPorg misterP;
 	private static Config conf;	
 	private static ProxyServer proxy;
+	private static Main main;
 	
 	@Override
 	public void onLoad() {
@@ -19,7 +20,7 @@ public class Main extends Plugin{
 	
 	@Override
     public void onEnable() {
-		
+		main = this;
 		conf = Config.getConfig(this);
         
         conf.initDataFolder();
@@ -27,9 +28,6 @@ public class Main extends Plugin{
         conf.initAndGetFile("config.yml");
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
-        
-        @SuppressWarnings("unused")
-		ServerManager serverM = new ServerManager(this);
         
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
@@ -65,5 +63,13 @@ public class Main extends Plugin{
 
 	public static void setProxyServer(ProxyServer proxy) {
 		Main.proxy = proxy;
+	}
+
+	public static Main getMain() {
+		return main;
+	}
+
+	public static void setMain(Main main) {
+		Main.main = main;
 	}
 }
