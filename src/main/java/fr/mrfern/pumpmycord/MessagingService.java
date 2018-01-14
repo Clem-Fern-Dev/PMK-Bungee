@@ -19,13 +19,13 @@ public class MessagingService implements Listener {
 		String tag = e.getTag();
 		
 		if(tag.equals("BungeeCord")) {
-			
+			System.out.println("bungee cord channel");
 			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
 			String subchannel = in.readUTF();
 			
 			switch (subchannel) {
 			case "prejoinrequest":
-				
+				System.out.println("prejoinrequest");
 				String serverName = in.readUTF();
 				ProxiedPlayer p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
 				String playerName = p.getDisplayName();
@@ -33,15 +33,14 @@ public class MessagingService implements Listener {
 				// check server state
 				
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				DataOutputStream outMessage = new DataOutputStream(out);
-	            outMessage.writeUTF("prejoinresponse");
-	            outMessage.writeUTF(serverName);
-	            outMessage.writeBoolean(false);
-	            //outMessage.close();
+				//DataOutputStream outMessage = new DataOutputStream(out);
+	            //outMessage.writeUTF("prejoinresponse");
+	            //outMessage.writeUTF(serverName);
+	           // outMessage.writeBoolean(false);
 				
-				//
-				
-				p.sendData("BungeeCord", out.toByteArray());
+	            out.write(165);
+			
+				p.getServer().sendData("BungeeCord", out.toByteArray());
 				
 				
 				break;
