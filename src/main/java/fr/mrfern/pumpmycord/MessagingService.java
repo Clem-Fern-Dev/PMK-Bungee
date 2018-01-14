@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -11,25 +12,32 @@ import net.md_5.bungee.event.EventHandler;
 public class MessagingService implements Listener {
 	
 	@EventHandler
-	public void OnMessagingServiceReceive(PluginMessageEvent e) throws IOException {
+	public void OnMessagingServiceReceive(PluginMessageEvent e) throws Exception {
 		String tag = e.getTag();
-		System.out.println(" Message receive " + tag);
+		ProxiedPlayer p = Main.getProxyServer().getPlayer(e.getReceiver().toString());
 		
-		switch (tag) {
-		case "BungeeCord":
-			
-			Main.getMisterP().getPorgTextChannel().sendPorgMessage(" BungeeCord Messaging recieve !").complete();
+		if(tag.equals("BungeeCord")) {
 			
 			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
-		    String subchannel = in.readUTF();
-		    if (subchannel.equals("servermanager")) {
-		      
-		    }
+			String subchannel = in.readUTF();
 			
-			break;
+			switch (subchannel) {
+			case "prejoinrequest":
+				
+				String serverName = in.readUTF();
+				
+				// check server state
+				
+				p.sendData("BungeeCord", null);
+				
+				
+				break;
 
-		default:
-			return;
+			default:
+				throw new Exception("OnMessagingService subchannel error ( " + subchannel + " inconnu )");
+			}
+			
+			
 		}
 	}
 	

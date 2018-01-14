@@ -13,6 +13,8 @@ public class Response {
 		setSender(sen);
 		setChannel(chan);		
 	}
+	
+	
 
 	public byte[] getBuff() {
 		return buff;
