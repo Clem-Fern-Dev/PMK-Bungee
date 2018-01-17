@@ -21,17 +21,22 @@ public class MessagingService implements Listener {
 		if(tag.equals("BungeeCord")) {
 			System.out.println("bungee cord channel");
 			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
-			String subchannel = in.readUTF();
+			String serverName, subchannel = in.readUTF();
+			ProxiedPlayer p;
+			String playerName;
+			boolean serverState;
+			
 			
 			switch (subchannel) {
 			case "prejoinrequest":
-				String serverName = in.readUTF();
-				ProxiedPlayer p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
-				String playerName = p.getDisplayName();
+				serverName = in.readUTF();
+				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
+				playerName = p.getDisplayName();
 				
-				boolean serverState = ServerManager.getManager(p).getServerState(serverName);
+				serverState = ServerManager.getManager(p).getServerState(serverName);
 				
 				if(!serverState) {
+					// serveur offline
 					ByteArrayOutputStream out = new ByteArrayOutputStream();
 					DataOutputStream outMessage = new DataOutputStream(out);
 					outMessage.writeUTF("prejoinresponse");
@@ -48,7 +53,8 @@ public class MessagingService implements Listener {
 		            outMessage.writeUTF(serverName);
 		            outMessage.writeBoolean(true);
 					
-					if(isBan) {						
+					if(isBan) {	
+						// ban , envoie des infos sur le bans
 			            outMessage.writeBoolean(true);
 			            outMessage.writeUTF(ServerManager.getManager(p).getAuthor(serverName));
 			            outMessage.writeUTF(ServerManager.getManager(p).getAuthorUUID(serverName));
@@ -70,14 +76,45 @@ public class MessagingService implements Listener {
 			            
 			            p.getServer().sendData("BungeeCord", out.toByteArray());
 					}else {
+						// Non ban, envoie de la confirmation
 						outMessage.writeBoolean(false);						
 						p.getServer().sendData("BungeeCord", out.toByteArray());
 					}
 				}
-				
-					
-				
 				break;
+				
+			case "joinreq":
+				
+				serverName = in.readUTF();
+				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
+				playerName = p.getDisplayName();
+				
+				serverState = ServerManager.getManager(p).getServerState(serverName);
+				
+				if(serverState) {
+					
+					int plyNb = Main.getProxyServer().getServerInfo(serverName).getPlayers().size();
+					// serveur online, envoit du nombre de joueur
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					DataOutputStream outMessage = new DataOutputStream(out);
+					outMessage.writeUTF("joinresponse");
+				    outMessage.writeUTF(serverName);
+				    outMessage.writeBoolean(true);
+				    outMessage.writeInt(plyNb);
+						
+				    p.getServer().sendData("BungeeCord", out.toByteArray());
+				}else {
+					// serveur offline
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					DataOutputStream outMessage = new DataOutputStream(out);
+					outMessage.writeUTF("joinresponse");
+		            outMessage.writeUTF(serverName);
+		            outMessage.writeBoolean(false);
+				
+					p.getServer().sendData("BungeeCord", out.toByteArray());
+				}
+				
+				
 
 			default:
 				throw new Exception("OnMessagingService subchannel error ( " + subchannel + " inconnu )");
