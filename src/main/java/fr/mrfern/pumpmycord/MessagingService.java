@@ -25,7 +25,6 @@ public class MessagingService implements Listener {
 			
 			switch (subchannel) {
 			case "prejoinrequest":
-				System.out.println("prejoinrequest");
 				String serverName = in.readUTF();
 				ProxiedPlayer p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
 				String playerName = p.getDisplayName();
