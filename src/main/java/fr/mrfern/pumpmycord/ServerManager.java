@@ -33,4 +33,70 @@ public class ServerManager {
 	public void sendResponse(Response Resp) {
 		p.sendData(Resp.getChannel(), Resp.getBuff());
 	}
+
+	public boolean isBan(String serverName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public String getAuthor(String serverName) {
+		// TODO Auto-generated method stub
+		return "CrazyDoC";
+	}
+	
+	public String getAuthorUUID(String serverName) {
+		// TODO Auto-generated method stub
+		return "CrazyDoC";
+	}
+
+	public boolean getBanIsGlobal() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String getRaison() {
+		// TODO Auto-generated method stub
+		return "no raison";
+	}
+
+	public int getDay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getHour() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getMinute() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getYear_end() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getMonth_end() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getDay_end() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getHour_end() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getMinute_end() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
