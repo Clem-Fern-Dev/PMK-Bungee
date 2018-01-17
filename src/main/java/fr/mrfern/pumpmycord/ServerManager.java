@@ -99,4 +99,8 @@ public class ServerManager {
 		return 0;
 	}
 	
+	public int getPlayerNumber(String serverName) {
+		return 0;
+	}
+	
 }
