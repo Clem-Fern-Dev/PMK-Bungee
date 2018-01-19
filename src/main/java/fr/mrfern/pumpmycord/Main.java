@@ -2,6 +2,7 @@ package fr.mrfern.pumpmycord;
 
 import fr.mrfern.pumpmycord.config.Config;
 import fr.mrfern.pumpmycord.porg.MisterPorg;
+import fr.mrfern.pumpmycord.porg.PorgListener;
 import fr.mrfern.pumpmycord.porg.PorgServerEvent;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -16,7 +17,7 @@ public class Main extends Plugin{
 	@Override
 	public void onLoad() {
 		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));	
-		//getMisterP().addListener(new PorgListener());
+		getMisterP().addListener(new PorgListener());
 	}
 	
 	@Override
