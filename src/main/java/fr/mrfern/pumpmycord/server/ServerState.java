@@ -9,6 +9,12 @@ public class ServerState {
 	private boolean state;
 	private ServerInfo serverInfo;
 	
+	public ServerState() {
+		state = false;
+		serverInfo = null;
+		playerCount = 0;
+	}
+	
 	public void updatePlayerCount() {
 		if (serverInfo != null) {
 			playerCount = serverInfo.getPlayers().size();

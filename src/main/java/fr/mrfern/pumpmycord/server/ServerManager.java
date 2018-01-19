@@ -30,9 +30,7 @@ public class ServerManager {
 	}
 
 	public boolean getServerState(String serverName) {
-		
-		
-		return true;
+		return hashServerState.get(serverName).isState();
 	}
 
 	public ProxiedPlayer getP() {
@@ -113,7 +111,8 @@ public class ServerManager {
 	}
 	
 	public int getPlayerNumber(String serverName) {
-		return 0;
+		hashServerState.get(serverName).updatePlayerCount();
+		return hashServerState.get(serverName).getPlayerCount();
 	}
 
 	public HashMap<String, ServerState> getHashServerState() {
