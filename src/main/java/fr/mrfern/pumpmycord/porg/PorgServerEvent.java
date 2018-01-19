@@ -32,10 +32,10 @@ public class PorgServerEvent {
 			PorgTextChannel porgChan = misterP.getPorgTextChannel();
 			
 			if(config.getBoolean("discord.debug_mod")) {
-				porgChan.sendPorgMessage(new MessageBuilder().append("µ0o").append( misterP.getJda().getTextChannelById("375790951081181187")).append(" __debug_mod__ **Le réseau PumpMyKins est hors-ligne !** \nToute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mises à jours sur le forum/discord/site !").build())
+				porgChan.sendPorgMessage(new MessageBuilder().append("µ0n").append( misterP.getJda().getTextChannelById("375790951081181187")).append(" __debug_mod__ **Le réseau PumpMyKins est hors-ligne !** \nToute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mises à jours sur le forum/discord/site !").build())
 				.complete();
 			}else {
-				porgChan.sendPorgMessage("µ0o @everyone **Le réseau PumpMyKins est hors-ligne !** \nToute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mises à jours sur le forum/discord/site !").complete();
+				porgChan.sendPorgMessage("µ0n @everyone **Le réseau PumpMyKins est hors-ligne !** \nToute l'équipe PMK fait son possible pour vous redonnez l'accès à ces services au plus vite. Restez informé des nouveautés et mises à jours sur le forum/discord/site !").complete();
 			}
 			
 		} catch (Exception e) {
