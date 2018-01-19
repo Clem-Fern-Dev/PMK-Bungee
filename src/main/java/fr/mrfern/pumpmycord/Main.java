@@ -15,7 +15,8 @@ public class Main extends Plugin{
 	
 	@Override
 	public void onLoad() {
-		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));		
+		setMisterP(new MisterPorg(this, "MzgyNTc4Mzg4MDY3NTQ5MTg0.DQdApA.zxYqzecf2pn3HMt6rRZGbcibggs","387326167499276292"));	
+		//getMisterP().addListener(new PorgListener());
 	}
 	
 	@Override
