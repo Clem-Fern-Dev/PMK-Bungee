@@ -93,7 +93,7 @@ public class MessagingService implements Listener {
 				
 				if(serverState) {
 					
-					int plyNb = Main.getProxyServer().getServerInfo(serverName).getPlayers().size();
+					int plyNb = ServerManager.getManager(p).getPlayerNumber(serverName);
 					// serveur online, envoit du nombre de joueur
 					ByteArrayOutputStream out = new ByteArrayOutputStream();
 					DataOutputStream outMessage = new DataOutputStream(out);
