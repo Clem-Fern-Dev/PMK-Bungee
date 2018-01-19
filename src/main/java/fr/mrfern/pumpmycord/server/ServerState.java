@@ -4,6 +4,7 @@ import net.md_5.bungee.api.config.ServerInfo;
 
 public class ServerState {
 
+	private String name;
 	private int playerCount;
 	private boolean state;
 	private ServerInfo serverInfo;
@@ -36,6 +37,14 @@ public class ServerState {
 
 	public void setServerInfo(ServerInfo serverInfo) {
 		this.serverInfo = serverInfo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
