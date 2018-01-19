@@ -113,6 +113,8 @@ public class MessagingService implements Listener {
 				
 					p.getServer().sendData("BungeeCord", out.toByteArray());
 				}
+				break;
+			
 				
 			default:
 				throw new Exception("OnMessagingService subchannel error ( " + subchannel + " inconnu )");
