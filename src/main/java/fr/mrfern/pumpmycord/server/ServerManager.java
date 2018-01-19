@@ -1,11 +1,16 @@
-package fr.mrfern.pumpmycord;
+package fr.mrfern.pumpmycord.server;
 
+import java.util.HashMap;
+
+import fr.mrfern.pumpmycord.Response;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class ServerManager {
 	
 	private static ServerManager serverManager = new ServerManager();
 	private ProxiedPlayer p;
+	
+	private HashMap<String, ServerState> hashServerState = new HashMap<>();
 
 	public static void initConfig() {
 		
@@ -101,6 +106,14 @@ public class ServerManager {
 	
 	public int getPlayerNumber(String serverName) {
 		return 0;
+	}
+
+	public HashMap<String, ServerState> getHashServerState() {
+		return hashServerState;
+	}
+
+	public void setHashServerState(HashMap<String, ServerState> hashServerState) {
+		this.hashServerState = hashServerState;
 	}
 	
 }
