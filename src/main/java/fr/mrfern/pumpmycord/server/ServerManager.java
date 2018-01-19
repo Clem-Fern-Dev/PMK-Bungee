@@ -10,10 +10,14 @@ public class ServerManager {
 	private static ServerManager serverManager = new ServerManager();
 	private ProxiedPlayer p;
 	
-	private HashMap<String, ServerState> hashServerState = new HashMap<>();
+	private static HashMap<String, ServerState> hashServerState = new HashMap<>();
 
 	public static void initConfig() {
 		
+	}
+	
+	public static void addServer(String serverName, ServerState serverState) {
+		hashServerState.put(serverName, serverState);
 	}
 
 	public static ServerManager getManager(ProxiedPlayer p) {
