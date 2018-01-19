@@ -16,6 +16,10 @@ public class ServerManager {
 		
 	}
 	
+	public static ServerState getServerStateClass(String serverName) {
+		return hashServerState.get(serverName);
+	}
+	
 	public static void addServer(String serverName, ServerState serverState) {
 		hashServerState.put(serverName, serverState);
 	}
