@@ -1,10 +1,17 @@
 package fr.mrfern.pumpmycord;
 
+import java.util.Map.Entry;
+
 import fr.mrfern.pumpmycord.config.Config;
 import fr.mrfern.pumpmycord.porg.MisterPorg;
 import fr.mrfern.pumpmycord.porg.PorgListener;
 import fr.mrfern.pumpmycord.porg.PorgServerEvent;
+import fr.mrfern.pumpmycord.server.ServerManager;
+import fr.mrfern.pumpmycord.server.ServerState;
+import net.md_5.bungee.api.Callback;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.ServerPing;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class Main extends Plugin{
@@ -35,6 +42,13 @@ public class Main extends Plugin{
         getProxy().getPluginManager().registerListener(this, new MessagingService());
 		
         new PorgServerEvent().OnProxyStartEvent(misterP);
+        
+        for (Entry<String, ServerInfo> entryServer : getProxy().getServers().entrySet()) {
+			ServerState serverState = new ServerState();
+			serverState.setName(entryServer.getValue().getName());
+			serverState.setServerInfo(entryServer.getValue());
+			serverState.setState(false);
+		}
         
     }
 
