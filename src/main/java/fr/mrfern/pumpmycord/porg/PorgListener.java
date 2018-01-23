@@ -15,8 +15,7 @@ public class PorgListener implements EventListener{
 	}
 
 	private void OnMessageReceivedEvent(MessageReceivedEvent e) {
-		System.out.println("message");
-		if(e.getAuthor().equals(e.getJDA().getSelfUser())) {
+		/*if(e.getAuthor().equals(e.getJDA().getSelfUser())) {
 			// server manager
 			String msg = e.getMessage().getContent();
 			String header = msg.substring(0, 3);
@@ -50,7 +49,7 @@ public class PorgListener implements EventListener{
 			default:
 				break;
 			}
-		}
+		}*/
 	}
 
 }
