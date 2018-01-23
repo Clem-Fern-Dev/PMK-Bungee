@@ -47,7 +47,7 @@ public class Main extends Plugin{
 			ServerState serverState = new ServerState();
 			serverState.setName(entryServer.getValue().getName());
 			serverState.setServerInfo(entryServer.getValue());
-			serverState.setState(false);
+			serverState.setState(true);
 			
 			ServerManager.addServer(entryServer.getKey(), serverState);
 			
