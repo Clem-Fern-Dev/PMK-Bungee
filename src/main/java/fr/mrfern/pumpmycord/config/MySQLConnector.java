@@ -17,12 +17,16 @@ public class MySQLConnector {
 	
 	public MySQLConnector() {
 		try {
+			Class.forName("org.mariadb.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/" + base + "?user=" + user + "&password=" + mdp);	//init connector
 			connector = connection;
 		} catch (SQLException e) {
 			System.out.println("MySQL execption message : " + e.getMessage());
 			System.out.println("MySQL execption error code : " + e.getErrorCode());
 			System.out.println("MySQL execption SQLState : " + e.getSQLState());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
