@@ -17,7 +17,7 @@ public class MySQLConnector {
 	
 	public MySQLConnector() {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/DB?user=" + user + "&password=" + mdp);
+			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/DB?user=" + user + "&password=" + mdp);	//init connector
 			connector = connection;
 		} catch (SQLException e) {
 			System.out.println("MySQL execption message : " + e.getMessage());
@@ -28,29 +28,52 @@ public class MySQLConnector {
 	
 	public void sendUpdate(String command) {
 		try {
-			Statement statment = connector.createStatement();
-			statment.executeUpdate(command);
+			Statement statement = connector.createStatement();	//create statement
+			statement.executeUpdate(command);	//send statement
 			
-			statment.close();
+			// close
+			statement.close();
 			connector.close();			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//close if error
+		try {
+			if(!connector.isClosed()) {
+				connector.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public ResultSet sendQueryAndGetResult(String command) {
+	public ResultSet sendQuery(String command) {
 		try {
-			Statement statment = connector.createStatement();
-			statment.executeUpdate(command);
+			Statement statement = connector.createStatement();	//create statement
+			ResultSet rs = statement.executeQuery(command);	//send statement
 			
-			statment.close();
-			connector.close();			
+			// close
+			statement.close();
+			connector.close();	
+			
+			return rs;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
-		return null;		
+		}
+		//close if error
+		try {
+			if(!connector.isClosed()) {
+				connector.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return null; // return null if error
 	}
 
 	public Connection getConnector() {
