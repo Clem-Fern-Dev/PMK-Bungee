@@ -37,7 +37,6 @@ public class Main extends Plugin{
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
         
-        conf.initMySqlConnector();
         
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
