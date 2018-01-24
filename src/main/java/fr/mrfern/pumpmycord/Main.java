@@ -12,6 +12,7 @@ import fr.mrfern.pumpmycord.server.ServerState;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
 
 public class Main extends Plugin{
     
@@ -36,8 +37,24 @@ public class Main extends Plugin{
         conf.initAndGetFile("config.yml");
         conf.initAndGetFile("reboot_message_history.yml");
         conf.initAndGetFile("reboot_message.yml");
-        
-        
+       
+        Configuration bddConf;
+		try {
+			// get instance configuration config.yml
+			bddConf = conf.getConfiguration("config.yml");
+			
+			//get url / user / mdp dans config.yml
+			String url = bddConf.getString("");
+	        String user = bddConf.getString("");
+	        String mdp = bddConf.getString("");
+	        
+	        //initialisation de la class MySQLConnector
+	        conf.initMySQLConnect(url,user,mdp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         // event Messaging plugin
         getProxy().getPluginManager().registerListener(this, new MessagingService());
         getProxy().getPluginManager().registerListener(this, new PlayerConfigurationService());
