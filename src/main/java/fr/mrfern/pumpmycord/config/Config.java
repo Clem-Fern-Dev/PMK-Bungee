@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-import org.mariadb.jdbc.MySQLDataSource;
-
 import fr.mrfern.pumpmycord.Main;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -55,6 +53,13 @@ public class Config {
 		} catch (Exception e) {
 			throw new Exception( fileName + " impossible de récupérer la configuration" );
 		}		
+	}
+
+	public void initMySQLConnect(String url, String user, String mdp) {
+		MySQLConnector.setUrl(url);
+		MySQLConnector.setUser(user);
+		MySQLConnector.setMdp(mdp);
+		MySQLConnector.setPort(3306);
 	}
 	
 }
