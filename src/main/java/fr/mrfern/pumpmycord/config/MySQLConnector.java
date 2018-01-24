@@ -13,11 +13,11 @@ public class MySQLConnector {
 	
 	private static String url;
 	private static int port;
-	private static String user,mdp;
+	private static String user,mdp,base;
 	
 	public MySQLConnector() {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/DB?user=" + user + "&password=" + mdp);	//init connector
+			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/" + base + "?user=" + user + "&password=" + mdp);	//init connector
 			connector = connection;
 		} catch (SQLException e) {
 			System.out.println("MySQL execption message : " + e.getMessage());
@@ -114,6 +114,14 @@ public class MySQLConnector {
 
 	public static void setMdp(String mdp) {
 		MySQLConnector.mdp = mdp;
+	}
+
+	public static String getBase() {
+		return base;
+	}
+
+	public static void setBase(String base1) {
+		base = base1;
 	}
 	
 }
