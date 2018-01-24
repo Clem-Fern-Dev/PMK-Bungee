@@ -44,12 +44,13 @@ public class Main extends Plugin{
 			bddConf = conf.getConfiguration("config.yml");
 			
 			//get url / user / mdp dans config.yml
-			String url = bddConf.getString("");
-	        String user = bddConf.getString("");
-	        String mdp = bddConf.getString("");
+			String url = bddConf.getString("ban.bdd_url");
+	        String user = bddConf.getString("ban.bdd_user");
+	        String mdp = bddConf.getString("ban.bdd_mdp");
+	        String base = bddConf.getString("ban.bdd_base");
 	        
 	        //initialisation de la class MySQLConnector
-	        conf.initMySQLConnect(url,user,mdp);
+	        conf.initMySQLConnect(url,user,mdp,base);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
