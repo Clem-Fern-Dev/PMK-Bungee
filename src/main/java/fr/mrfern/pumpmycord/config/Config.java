@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
+import org.mariadb.jdbc.MySQLDataSource;
+
 import fr.mrfern.pumpmycord.Main;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -14,6 +16,7 @@ public class Config {
 
 	private static Config config = new Config();
 	private static Main main;
+	private static MySQLConnector mySqlConnector;
 	
 	public static Config getConfig(Main m) {
 		main = m;
@@ -53,6 +56,19 @@ public class Config {
 		} catch (Exception e) {
 			throw new Exception( fileName + " impossible de récupérer la configuration" );
 		}		
+	}
+
+	public void initMySqlConnector() {
+		MySQLConnector mySQL = new MySQLConnector("", 3306, "", "");
+		mySqlConnector = mySQL;		
+	}
+
+	public static MySQLConnector getMySqlConnector() {
+		return mySqlConnector;
+	}
+
+	public static void setMySqlConnector(MySQLConnector mySqlConnector) {
+		Config.mySqlConnector = mySqlConnector;
 	}
 	
 }
