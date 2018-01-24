@@ -55,11 +55,12 @@ public class Config {
 		}		
 	}
 
-	public void initMySQLConnect(String url, String user, String mdp) {
+	public void initMySQLConnect(String url, String user, String mdp, String base) {
 		MySQLConnector.setUrl(url);
 		MySQLConnector.setUser(user);
 		MySQLConnector.setMdp(mdp);
 		MySQLConnector.setPort(3306);
+		MySQLConnector.setBase(base);
 	}
 	
 }
