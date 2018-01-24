@@ -1,20 +1,24 @@
 package fr.mrfern.pumpmycord.config;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MySQLConnector {
 
 	private Connection connector;
-	private boolean isOK;
 	
-	public MySQLConnector(String url, int port, String user, String mdp) {
+	private static String url;
+	private static int port;
+	private static String user,mdp;
+	
+	public MySQLConnector() {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/DB?user=root&password=myPassword");
+			Connection connection = DriverManager.getConnection("jdbc:mariadb://"+ url  + ":" + port + "/DB?user=" + user + "&password=" + mdp);
 			connector = connection;
-			isOK = true;
 		} catch (SQLException e) {
 			System.out.println("MySQL execption message : " + e.getMessage());
 			System.out.println("MySQL execption error code : " + e.getErrorCode());
@@ -22,14 +26,30 @@ public class MySQLConnector {
 		}
 	}
 	
-	public void sendQuery(String command) {
-		
+	public void sendUpdate(String command) {
+		try {
+			Statement statment = connector.createStatement();
+			statment.executeUpdate(command);
+			
+			statment.close();
+			connector.close();			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public ResultSet sendQueryAndGetResult(String command) {
-		
-		
-		
+		try {
+			Statement statment = connector.createStatement();
+			statment.executeUpdate(command);
+			
+			statment.close();
+			connector.close();			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		return null;		
 	}
 
@@ -41,12 +61,36 @@ public class MySQLConnector {
 		this.connector = connector;
 	}
 
-	public boolean isIsOK() {
-		return isOK;
+	public static String getUrl() {
+		return url;
 	}
 
-	public void setIsOK(boolean IsOK) {
-		isOK = IsOK;
+	public static void setUrl(String url) {
+		MySQLConnector.url = url;
+	}
+
+	public static int getPort() {
+		return port;
+	}
+
+	public static void setPort(int port) {
+		MySQLConnector.port = port;
+	}
+
+	public static String getUser() {
+		return user;
+	}
+
+	public static void setUser(String user) {
+		MySQLConnector.user = user;
+	}
+
+	public static String getMdp() {
+		return mdp;
+	}
+
+	public static void setMdp(String mdp) {
+		MySQLConnector.mdp = mdp;
 	}
 	
 }
