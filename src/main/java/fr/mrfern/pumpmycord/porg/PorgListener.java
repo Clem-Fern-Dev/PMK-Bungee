@@ -1,6 +1,5 @@
 package fr.mrfern.pumpmycord.porg;
 
-import fr.mrfern.pumpmycord.server.ServerManager;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
