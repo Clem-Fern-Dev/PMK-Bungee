@@ -1,2 +1,9 @@
 discord:
   debug_mod: false
+ban:
+  bdd_url: "localhost"
+  bdd_port: 3306
+  bdd_base: "pmupmysql"
+  bdd_user: "user"
+  bdd_mdp: "user"
+  
