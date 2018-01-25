@@ -83,12 +83,14 @@ public class ServerManager {
 						new MySQLConnector().sendUpdate("UPDATE `ban_list` SET `player_UUID`='" + removeUUID + "' WHERE `id`=" + banID);	// update ligne dans ban_list
 					
 						// donc deban / vérification du nom du serveur
-						if(serverName.equals(banRS.getString("ban_type"))) {
-							return false;
+						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
+							return true;
 						}
 					}else {
 						// sinon ban
-						return true;
+						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
+							return true;
+						}
 					}
 					
 				}
