@@ -60,6 +60,8 @@ public class MessagingService implements Listener {
 			            outMessage.writeUTF(ServerManager.getManager(p).getAuthor(serverName));
 			            outMessage.writeUTF(ServerManager.getManager(p).getAuthorUUID(serverName));
 			            
+			            /*
+			            
 			            outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal());
 			            
 			            outMessage.writeUTF(ServerManager.getManager(p).getRaison());
@@ -74,7 +76,7 @@ public class MessagingService implements Listener {
 			            outMessage.writeInt(ServerManager.getManager(p).getHour_end());
 			            outMessage.writeInt(ServerManager.getManager(p).getMinute_end());
 			            
-			            
+			            */
 			            p.getServer().sendData("BungeeCord", out.toByteArray());
 					}else {
 						// Non ban, envoie de la confirmation
@@ -84,7 +86,7 @@ public class MessagingService implements Listener {
 				}
 				break;
 				
-			case "joinreq":
+			/*case "joinreq":
 				
 				serverName = in.readUTF();
 				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
@@ -116,7 +118,7 @@ public class MessagingService implements Listener {
 				}
 				break;
 			
-				
+			*/	
 			default:
 				throw new Exception("OnMessagingService subchannel error ( " + subchannel + " inconnu )");
 			}
