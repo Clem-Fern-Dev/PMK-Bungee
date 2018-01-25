@@ -84,16 +84,16 @@ public class ServerManager {
 					
 						// donc deban / vérification du nom du serveur
 						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
-							return true;
+							return false;
 						}
 					}else {
 						// sinon ban
 						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
 							return true;
 						}
-					}
-					
+					}					
 				}
+				return false;
 			}
 			
 		} catch (SQLException e) {
