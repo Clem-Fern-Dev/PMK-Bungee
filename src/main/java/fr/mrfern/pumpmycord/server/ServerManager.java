@@ -104,8 +104,25 @@ public class ServerManager {
 	}
 	
 	public String getAuthor(String serverName) {
-		// TODO Auto-generated method stub
-		return "CrazyDoC";
+		
+		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
+		List<Integer> banIDList = new ArrayList<>();
+		
+		try {
+			// récupération du contenu de la table
+			while(listRS.next()) {
+				try {
+					// ajout à la liste de banID
+					System.out.println(listRS.getInt("ban_ID"));
+					banIDList.add(listRS.getInt("ban_ID"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "none";
 	}
 	
 	public String getAuthorUUID(String serverName) {
