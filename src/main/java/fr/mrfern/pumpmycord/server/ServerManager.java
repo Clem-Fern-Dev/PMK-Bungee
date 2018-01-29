@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import fr.mrfern.pumpmycord.Response;
 import fr.mrfern.pumpmycord.config.MySQLConnector;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
@@ -46,10 +45,10 @@ public class ServerManager {
 		this.p = p;
 	}
 	
-	public void sendResponse(Response Resp) {
+	/*public void sendResponse(Response Resp) {
 		p.sendData(Resp.getChannel(), Resp.getBuff());
 	}
-
+*/
 	public boolean isBan(String serverName) {
 		System.out.println(p.getUniqueId());
 		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
