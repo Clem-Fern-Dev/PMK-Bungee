@@ -204,47 +204,47 @@ public class ServerManager {
 		return "none";
 	}
 
-	public String getRaison() {
+	public String getRaison(String serverName) {
 		// TODO Auto-generated method stub
 		return "no raison";
 	}
 
-	public int getDay() {
+	public int getDay(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getHour() {
+	public int getHour(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getMinute() {
+	public int getMinute(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getYear_end() {
+	public int getYear_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getMonth_end() {
+	public int getMonth_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getDay_end() {
+	public int getDay_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getHour_end() {
+	public int getHour_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int getMinute_end() {
+	public int getMinute_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}	
