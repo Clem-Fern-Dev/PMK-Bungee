@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 import fr.mrfern.pumpmycord.server.ServerManager;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -20,70 +18,38 @@ public class MessagingService implements Listener {
 		String tag = e.getTag();
 		
 		if(tag.equals("BungeeCord")) {
-			System.out.println("bungee cord channel");
-			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
-			String serverName, subchannel = in.readUTF();
+			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));	// déclaration du data input
+			String serverName, subchannel = in.readUTF();	// déclaration dela variable du nom de serveur / récupération du nom du channel
 			ProxiedPlayer p;
-			String playerName;
-			boolean serverState;
-			
+			String playerName;			
 			
 			switch (subchannel) {
 			case "prejoinrequest":
-				serverName = in.readUTF();
-				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
-				playerName = p.getDisplayName();
+				serverName = in.readUTF();	//get server name
+				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());		// get du Proxy player
+				playerName = p.getDisplayName();	//nom du joueur
 				
-				serverState = ServerManager.getManager(p).getServerState(serverName);
-				
-				if(!serverState) {
-					// serveur offline
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					DataOutputStream outMessage = new DataOutputStream(out);
-					outMessage.writeUTF("prejoinresponse");
-		            outMessage.writeUTF(serverName);
-		            outMessage.writeBoolean(false);
-				
-					p.getServer().sendData("BungeeCord", out.toByteArray());
-				}else {
-					boolean isBan = ServerManager.getManager(p).isBan(serverName);
-					
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					DataOutputStream outMessage = new DataOutputStream(out);
-					outMessage.writeUTF("prejoinresponse");
-		            outMessage.writeUTF(serverName);
-		            outMessage.writeBoolean(true);
-					
-					if(isBan) {	
-						// ban , envoie des infos sur le bans
-			            outMessage.writeBoolean(true);
-			            outMessage.writeUTF(ServerManager.getManager(p).getAuthor(serverName));
-			            outMessage.writeUTF(ServerManager.getManager(p).getAuthorUUID(serverName));
-			            
-			            /*
-			            
-			            outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal());
-			            
-			            outMessage.writeUTF(ServerManager.getManager(p).getRaison());
-			            
-			            outMessage.writeInt(ServerManager.getManager(p).getDay());
-			            outMessage.writeInt(ServerManager.getManager(p).getHour());
-			            outMessage.writeInt(ServerManager.getManager(p).getMinute());
-			            
-			            outMessage.writeInt(ServerManager.getManager(p).getYear_end());
-			            outMessage.writeInt(ServerManager.getManager(p).getMonth_end());
-			            outMessage.writeInt(ServerManager.getManager(p).getDay_end());
-			            outMessage.writeInt(ServerManager.getManager(p).getHour_end());
-			            outMessage.writeInt(ServerManager.getManager(p).getMinute_end());
-			            
-			            */
-			            p.getServer().sendData("BungeeCord", out.toByteArray());
-					}else {
-						// Non ban, envoie de la confirmation
-						outMessage.writeBoolean(false);						
-						p.getServer().sendData("BungeeCord", out.toByteArray());
-					}
-				}
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				DataOutputStream outMessage = new DataOutputStream(out);
+				outMessage.writeUTF("prejoinresponse");	// nom de la réponse
+		        outMessage.writeUTF(serverName);		// nom du serveur visé par la requete
+		        
+		        boolean isBan = ServerManager.getManager(p).isBan(serverName); 	// récupération de ban ou pas du joueur				
+		        if(isBan) {
+		        	//si ban
+		        	outMessage.writeBoolean(true);	// true pour ban
+		        	
+		        	outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal()); 	// envoie du boolean ban all ou non
+		        	
+		        }else {
+		        	//si pas ban
+		        	outMessage.writeBoolean(false);		//false pour non ban        	
+		        }
+		        
+		        p.getServer().sendData("BungeeCord", out.toByteArray());	// envoie des datas
+		        // optimization RAM
+		        outMessage.close();
+		        out.close();
 				break;
 				
 			/*case "joinreq":
