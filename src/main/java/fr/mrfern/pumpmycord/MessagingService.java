@@ -38,8 +38,16 @@ public class MessagingService implements Listener {
 		        if(isBan) {
 		        	//si ban
 		        	outMessage.writeBoolean(true);	// true pour ban
+		        	// INUTILE outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal()); 	// envoie du boolean ban all ou non
 		        	
-		        	outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal()); 	// envoie du boolean ban all ou non
+		        	// récupération des informations sur l'auteur du ban (nom/UUID)
+		        	outMessage.writeUTF(ServerManager.getManager(p).getAuthor(serverName));
+		        	outMessage.writeUTF(ServerManager.getManager(p).getAuthorUUID(serverName));
+		        	
+		        	// récupération des informations sur la durée du ban
+		        	outMessage.writeInt(ServerManager.getManager(p).getDay());
+		        	outMessage.writeInt(ServerManager.getManager(p).getHour());
+		        	outMessage.writeInt(ServerManager.getManager(p).getMinute());
 		        	
 		        }else {
 		        	//si pas ban
