@@ -3,19 +3,81 @@ package fr.mrfern.pumpmycord.server;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import fr.mrfern.pumpmycord.config.MySQLConnector;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class ServerManager {
 	
-	private static ServerManager serverManager = new ServerManager();
 	private ProxiedPlayer p;
+	private HashMap<String,BanData> banDataList;
 
-	public static ServerManager getManager(ProxiedPlayer p) {
-		serverManager.setP(p);
-		return serverManager;
+	public ServerManager(ProxiedPlayer player) {
+		setP(player);
+		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
+		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
+		
+		// récupération du contenu de la table
+		try {
+			while(listRS.next()) {
+				try {
+					// ajout à la liste de banID
+					banIDList.add(listRS.getInt("ban_ID"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(!banIDList.isEmpty()) {
+				// si pas de ban avec cette uuid alors return false
+				for (int banID : banIDList) {
+					ResultSet banRS = new MySQLConnector().sendQuery("SELECT `author_UUID`, `author_name`, `ban_type`, `raison`, `bantime_day`, `bantime_hour`, `bantime_minut`, `end_bantime_year`, `end_bantime_month`, `end_bantime_day`, `end_bantime_hour`, `end_bantime_minut`, `player_UUID`, `end` FROM `ban_list` WHERE `id`=" + banID);
+					banRS.next();
+					
+					boolean end = banRS.getBoolean("end");
+					
+					if(!end) {
+						BanData banData = new BanData();
+						
+						String banType = banRS.getString("ban_type");
+						
+						banData.setAuthor(banRS.getString("author_name")); 	// set author name dans ban Data
+						banData.setAuthor(banRS.getString("author_UUID")); 	// set author UUID dans ban Data
+						
+						banData.setBanType(banType); 	// set ban type dans ban Data
+						
+						banData.setRaison(banRS.getString("raison")); 	// set raison dans ban Data
+						
+						// set temps de ban dans ban Data
+						banData.setDay(banRS.getInt("bantime_day"));
+						banData.setHour(banRS.getInt("bantime_hour"));
+						banData.setMinute(banRS.getInt("bantime_minut"));
+						
+						//set date de fin de ban dans ban Data
+						banData.setYear_end(banRS.getInt("end_bantime_year"));
+						banData.setMonth_end(banRS.getInt("end_bantime_month"));
+						banData.setDay_end(banRS.getInt("end_bantime_day"));
+						banData.setHour_end(banRS.getInt("end_bantime_hour"));
+						banData.setMinute_end(banRS.getInt("end_bantime_minut"));
+						
+						banDataList.put(banType, banData); // ajout à la map les infos sur le ban
+					}							
+				}
+				
+			}
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static ServerManager getManager(ProxiedPlayer p) {	
+		return new ServerManager(p);
 	}
 
 	public ProxiedPlayer getP() {
@@ -27,59 +89,12 @@ public class ServerManager {
 	}
 	
 	public boolean isBan(String serverName) {
-		System.out.println(p.getUniqueId());	// récupération de l'UUID du joueur
-		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
-		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
-		
-		try {
-			// récupération du contenu de la table
-			while(listRS.next()) {
-				try {
-					// ajout à la liste de banID
-					System.out.println(listRS.getInt("ban_ID"));
-					banIDList.add(listRS.getInt("ban_ID"));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}			
-			if(banIDList.isEmpty()) {
-				// si pas de ban avec cette uuid alors return false
-				return false;
-			}else {
-				for (int banID : banIDList) {
-					ResultSet banRS = new MySQLConnector().sendQuery("SELECT `author_UUID`, `author_name`, `ban_type`, `end` FROM `ban_list` WHERE id=" + banID);
-					banRS.next();
-					
-					if(banRS.getBoolean("end")) {	// calcul end fait toutes les minutes
-						ResultSet removeRS = new MySQLConnector().sendQuery("SELECT `player_UUID` FROM `player_ban` WHERE `ban_ID`=" + banID); // récupération de l'UUID du joueur banni
-						removeRS.next();
-						String removeUUID = removeRS.getString("player_UUID");						
-						new MySQLConnector().sendUpdate("DELETE FROM `player_ban` WHERE `ban_ID`=" + banID);	// suppresion de la ligne correspondante à cette UUID dans la table player_ban
-						new MySQLConnector().sendUpdate("UPDATE `ban_list` SET `player_UUID`='" + removeUUID + "' WHERE `id`=" + banID);	// update ligne dans ban_list
-					
-						// donc deban / vérification du nom du serveur
-						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
-							return false;
-						}
-					}else {
-						// sinon ban
-						if(serverName.equals(banRS.getString("ban_type")) | banRS.getString("ban_type").equals("global")) {
-							return true;
-						}
-					}					
-				}
-				return false;
-			}
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return false;
 	}
 	
 	public boolean getBanIsGlobal() {
-		System.out.println(p.getUniqueId());	// récupération de l'UUID du joueur
 		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
 		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
 		
@@ -247,5 +262,13 @@ public class ServerManager {
 	public int getMinute_end(String serverName) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public HashMap<String,BanData> getBanDataList() {
+		return banDataList;
+	}
+
+	public void setBanDataList(HashMap<String,BanData> banDataList) {
+		this.banDataList = banDataList;
 	}	
 }
