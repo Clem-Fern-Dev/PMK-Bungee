@@ -47,19 +47,19 @@ public class MessagingService implements Listener {
 		        	outMessage.writeUTF(man.getAuthorUUID(serverName));
 		        	
 		        	//récupération de la raison
-		        	outMessage.writeUTF(man.getRaison());
+		        	outMessage.writeUTF(man.getRaison(serverName));
 		        	
 		        	// récupération des informations sur la durée du ban
-		        	outMessage.writeInt(man.getDay());
-		        	outMessage.writeInt(man.getHour());
-		        	outMessage.writeInt(man.getMinute());
+		        	outMessage.writeInt(man.getDay(serverName));
+		        	outMessage.writeInt(man.getHour(serverName));
+		        	outMessage.writeInt(man.getMinute(serverName));
 		        	
 		        	// récupération des informations sur la date de fin du ban
-		        	outMessage.writeInt(man.getYear_end());
-		        	outMessage.writeInt(man.getMonth_end());
-		        	outMessage.writeInt(man.getDay_end());
-		        	outMessage.writeInt(man.getHour_end());
-		        	outMessage.writeInt(man.getMinute_end());
+		        	outMessage.writeInt(man.getYear_end(serverName));
+		        	outMessage.writeInt(man.getMonth_end(serverName));
+		        	outMessage.writeInt(man.getDay_end(serverName));
+		        	outMessage.writeInt(man.getHour_end(serverName));
+		        	outMessage.writeInt(man.getMinute_end(serverName));
 		        	
 		        }else {
 		        	//si pas ban
