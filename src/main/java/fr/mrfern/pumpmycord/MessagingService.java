@@ -32,7 +32,9 @@ public class MessagingService implements Listener {
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				DataOutputStream outMessage = new DataOutputStream(out);
 				outMessage.writeUTF("prejoinresponse");	// nom de la réponse
-		        outMessage.writeUTF(serverName);		// nom du serveur visé par la requete
+		        outMessage.writeUTF(serverName);	// nom du serveur visé par la requete
+		        
+		        ServerManager man = ServerManager.getManager(p);	// récupération de l'instance du manager lié au joueur
 		        
 		        boolean isBan = ServerManager.getManager(p).isBan(serverName); 	// récupération de ban ou pas du joueur				
 		        if(isBan) {
@@ -41,13 +43,23 @@ public class MessagingService implements Listener {
 		        	// INUTILE outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal()); 	// envoie du boolean ban all ou non
 		        	
 		        	// récupération des informations sur l'auteur du ban (nom/UUID)
-		        	outMessage.writeUTF(ServerManager.getManager(p).getAuthor(serverName));
-		        	outMessage.writeUTF(ServerManager.getManager(p).getAuthorUUID(serverName));
+		        	outMessage.writeUTF(man.getAuthor(serverName));
+		        	outMessage.writeUTF(man.getAuthorUUID(serverName));
+		        	
+		        	//récupération de la raison
+		        	outMessage.writeUTF(man.getRaison());
 		        	
 		        	// récupération des informations sur la durée du ban
-		        	outMessage.writeInt(ServerManager.getManager(p).getDay());
-		        	outMessage.writeInt(ServerManager.getManager(p).getHour());
-		        	outMessage.writeInt(ServerManager.getManager(p).getMinute());
+		        	outMessage.writeInt(man.getDay());
+		        	outMessage.writeInt(man.getHour());
+		        	outMessage.writeInt(man.getMinute());
+		        	
+		        	// récupération des informations sur la date de fin du ban
+		        	outMessage.writeInt(man.getYear_end());
+		        	outMessage.writeInt(man.getMonth_end());
+		        	outMessage.writeInt(man.getDay_end());
+		        	outMessage.writeInt(man.getHour_end());
+		        	outMessage.writeInt(man.getMinute_end());
 		        	
 		        }else {
 		        	//si pas ban
