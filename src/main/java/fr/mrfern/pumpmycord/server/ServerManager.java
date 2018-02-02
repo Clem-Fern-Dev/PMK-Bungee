@@ -3,7 +3,6 @@ package fr.mrfern.pumpmycord.server;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import fr.mrfern.pumpmycord.config.MySQLConnector;
@@ -13,28 +12,10 @@ public class ServerManager {
 	
 	private static ServerManager serverManager = new ServerManager();
 	private ProxiedPlayer p;
-	
-	private static HashMap<String, ServerState> hashServerState = new HashMap<>();
-
-	public static void initConfig() {
-		
-	}
-	
-	public static ServerState getServerStateClass(String serverName) {
-		return hashServerState.get(serverName);
-	}
-	
-	public static void addServer(String serverName, ServerState serverState) {
-		hashServerState.put(serverName, serverState);
-	}
 
 	public static ServerManager getManager(ProxiedPlayer p) {
 		serverManager.setP(p);
 		return serverManager;
-	}
-
-	public boolean getServerState(String serverName) {
-		return hashServerState.get(serverName).isState();
 	}
 
 	public ProxiedPlayer getP() {
@@ -45,14 +26,10 @@ public class ServerManager {
 		this.p = p;
 	}
 	
-	/*public void sendResponse(Response Resp) {
-		p.sendData(Resp.getChannel(), Resp.getBuff());
-	}
-*/
 	public boolean isBan(String serverName) {
-		System.out.println(p.getUniqueId());
+		System.out.println(p.getUniqueId());	// récupération de l'UUID du joueur
 		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
-		List<Integer> banIDList = new ArrayList<>();
+		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
 		
 		try {
 			// récupération du contenu de la table
@@ -67,7 +44,6 @@ public class ServerManager {
 			}			
 			if(banIDList.isEmpty()) {
 				// si pas de ban avec cette uuid alors return false
-				System.out.println("pas de ban, liste vide");
 				return false;
 			}else {
 				for (int banID : banIDList) {
@@ -100,6 +76,43 @@ public class ServerManager {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public boolean getBanIsGlobal() {
+		System.out.println(p.getUniqueId());	// récupération de l'UUID du joueur
+		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
+		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
+		
+		try {
+			while(listRS.next()) {
+				try {
+					// ajout à la liste de banID
+					System.out.println(listRS.getInt("ban_ID"));
+					banIDList.add(listRS.getInt("ban_ID"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				if(banIDList.isEmpty()) {
+					// si pas de ban avec cette uuid alors return false
+					return false;
+				}else {
+					for (int banID : banIDList) {
+						ResultSet banRS = new MySQLConnector().sendQuery("SELECT `ban_type` FROM `ban_list` WHERE id=" + banID);	// récupération du type de ban
+						banRS.next();
+						if(banRS.getString("ban_type").equals("global")) {
+							// si global alors return true isglobal sinon on continue de check
+							return true;
+						}
+					}
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;		
 	}
 	
 	public String getAuthor(String serverName) {
@@ -191,11 +204,6 @@ public class ServerManager {
 		return "none";
 	}
 
-	public boolean getBanIsGlobal() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public String getRaison() {
 		// TODO Auto-generated method stub
 		return "no raison";
@@ -239,19 +247,5 @@ public class ServerManager {
 	public int getMinute_end() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-	
-	public int getPlayerNumber(String serverName) {
-		hashServerState.get(serverName).updatePlayerCount();
-		return hashServerState.get(serverName).getPlayerCount();
-	}
-
-	public HashMap<String, ServerState> getHashServerState() {
-		return hashServerState;
-	}
-
-	public void setHashServerState(HashMap<String, ServerState> hashServerState) {
-		this.hashServerState = hashServerState;
-	}
-	
+	}	
 }
