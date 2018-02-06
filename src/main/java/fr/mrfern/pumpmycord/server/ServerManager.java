@@ -98,6 +98,11 @@ public class ServerManager {
 	}
 	
 	public boolean getBanIsGlobal() {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals("global")) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
