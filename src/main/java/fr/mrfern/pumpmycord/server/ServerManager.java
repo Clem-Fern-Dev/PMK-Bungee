@@ -45,7 +45,7 @@ public class ServerManager {
 						String banType = banRS.getString("ban_type");
 						
 						banData.setAuthor(banRS.getString("author_name")); 	// set author name dans ban Data
-						banData.setAuthor(banRS.getString("author_UUID")); 	// set author UUID dans ban Data
+						banData.setAuthor_UUID(banRS.getString("author_UUID")); 	// set author UUID dans ban Data
 						
 						banData.setBanType(banType); 	// set ban type dans ban Data
 						
