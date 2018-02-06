@@ -21,7 +21,12 @@ public class MessagingService implements Listener {
 			DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));	// déclaration du data input
 			String serverName, subchannel = in.readUTF();	// déclaration dela variable du nom de serveur / récupération du nom du channel
 			ProxiedPlayer p;
-			String playerName;			
+			@SuppressWarnings("unused")
+			String playerName;	
+			
+			ByteArrayOutputStream out;
+			DataOutputStream outMessage;
+			
 			
 			switch (subchannel) {
 			case "prejoinrequest":
@@ -29,8 +34,8 @@ public class MessagingService implements Listener {
 				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());		// get du Proxy player
 				playerName = p.getDisplayName();	//nom du joueur
 				
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				DataOutputStream outMessage = new DataOutputStream(out);
+				out = new ByteArrayOutputStream();
+				outMessage = new DataOutputStream(out);
 				outMessage.writeUTF("prejoinresponse");	// nom de la réponse
 		        outMessage.writeUTF(serverName);	// nom du serveur visé par la requete
 		        
@@ -72,39 +77,21 @@ public class MessagingService implements Listener {
 		        out.close();
 				break;
 				
-			/*case "joinreq":
+			case "joinreq":
 				
 				serverName = in.readUTF();
 				p = Main.getMain().getProxy().getPlayer(e.getReceiver().toString());
 				playerName = p.getDisplayName();
 				
-				serverState = ServerManager.getManager(p).getServerState(serverName);
+				out = new ByteArrayOutputStream();
+				outMessage = new DataOutputStream(out);
+				outMessage.writeUTF("joinresponse");	// nom de la réponse
+		        outMessage.writeUTF(serverName);	// nom du serveur visé par la requete
 				
-				if(serverState) {
-					
-					int plyNb = ServerManager.getManager(p).getPlayerNumber(serverName);
-					// serveur online, envoit du nombre de joueur
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					DataOutputStream outMessage = new DataOutputStream(out);
-					outMessage.writeUTF("joinresponse");
-				    outMessage.writeUTF(serverName);
-				    outMessage.writeBoolean(true);
-				    outMessage.writeInt(plyNb);
-						
-				    p.getServer().sendData("BungeeCord", out.toByteArray());
-				}else {
-					// serveur offline
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					DataOutputStream outMessage = new DataOutputStream(out);
-					outMessage.writeUTF("joinresponse");
-		            outMessage.writeUTF(serverName);
-		            outMessage.writeBoolean(false);
+				outMessage.writeInt(p.getServer().getInfo().getPlayers().size());
 				
-					p.getServer().sendData("BungeeCord", out.toByteArray());
-				}
 				break;
 			
-			*/	
 			default:
 				throw new Exception("OnMessagingService subchannel error ( " + subchannel + " inconnu )");
 			}
