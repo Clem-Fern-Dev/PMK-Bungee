@@ -170,7 +170,11 @@ public class ServerManager {
 	}
 
 	public int getMonth_end(String serverName) {
-		// TODO Auto-generated method stub
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+				return entry.getValue().getMonth_end();
+			}
+		}
 		return 0;
 	}
 
