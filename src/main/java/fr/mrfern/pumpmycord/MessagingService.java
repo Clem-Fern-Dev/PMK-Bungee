@@ -42,7 +42,7 @@ public class MessagingService implements Listener {
 		        	outMessage.writeBoolean(true);	// true pour ban
 		        	// INUTILE outMessage.writeBoolean(ServerManager.getManager(p).getBanIsGlobal()); 	// envoie du boolean ban all ou non
 		        	
-		        	// récupération des informations sur l'auteur du ban (nom/UUID)
+		        	/*// récupération des informations sur l'auteur du ban (nom/UUID)
 		        	outMessage.writeUTF(man.getAuthor(serverName));
 		        	outMessage.writeUTF(man.getAuthorUUID(serverName));
 		        	
@@ -59,7 +59,7 @@ public class MessagingService implements Listener {
 		        	outMessage.writeInt(man.getMonth_end(serverName));
 		        	outMessage.writeInt(man.getDay_end(serverName));
 		        	outMessage.writeInt(man.getHour_end(serverName));
-		        	outMessage.writeInt(man.getMinute_end(serverName));
+		        	outMessage.writeInt(man.getMinute_end(serverName));*/
 		        	
 		        }else {
 		        	//si pas ban

@@ -89,8 +89,8 @@ public class ServerManager {
 	}
 	
 	public boolean isBan(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return true;
 			}
 		}
@@ -98,8 +98,8 @@ public class ServerManager {
 	}
 	
 	public boolean getBanIsGlobal() {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals("global")) {	// test ban global
 				return true;
 			}
 		}
@@ -107,8 +107,8 @@ public class ServerManager {
 	}
 	
 	public String getAuthor(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getAuthor();
 			}
 		}
@@ -116,8 +116,8 @@ public class ServerManager {
 	}
 	
 	public String getAuthorUUID(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getAuthor_UUID();
 			}
 		}
@@ -125,8 +125,8 @@ public class ServerManager {
 	}
 
 	public String getRaison(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getRaison();
 			}
 		}
@@ -134,8 +134,8 @@ public class ServerManager {
 	}
 
 	public int getDay(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getDay();
 			}
 		}
@@ -143,8 +143,8 @@ public class ServerManager {
 	}
 
 	public int getHour(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getHour();
 			}
 		}
@@ -152,8 +152,8 @@ public class ServerManager {
 	}
 
 	public int getMinute(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getMinute();
 			}
 		}
@@ -161,8 +161,8 @@ public class ServerManager {
 	}
 
 	public int getYear_end(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getYear_end();
 			}
 		}
@@ -170,8 +170,8 @@ public class ServerManager {
 	}
 
 	public int getMonth_end(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getMonth_end();
 			}
 		}
@@ -179,8 +179,8 @@ public class ServerManager {
 	}
 
 	public int getDay_end(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getDay_end();
 			}
 		}
@@ -188,8 +188,8 @@ public class ServerManager {
 	}
 
 	public int getHour_end(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getHour_end();
 			}
 		}
@@ -197,8 +197,8 @@ public class ServerManager {
 	}
 
 	public int getMinute_end(String serverName) {
-		for (Entry<String, BanData> entry : banDataList.entrySet()) {
-			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {	//parcours de la liste de ban
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {	// test nom du serveur ou ban global
 				return entry.getValue().getMinute_end();
 			}
 		}
