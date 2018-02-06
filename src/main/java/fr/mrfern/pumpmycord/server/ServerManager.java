@@ -107,6 +107,11 @@ public class ServerManager {
 	}
 	
 	public String getAuthor(String serverName) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+				return entry.getValue().getAuthor();
+			}
+		}
 		return "none";
 	}
 	
