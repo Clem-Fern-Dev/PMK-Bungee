@@ -36,7 +36,7 @@ public class MessagingService implements Listener {
 		        
 		        ServerManager man = ServerManager.getManager(p);	// récupération de l'instance du manager lié au joueur
 		        
-		        boolean isBan = ServerManager.getManager(p).isBan(serverName); 	// récupération de ban ou pas du joueur				
+		        boolean isBan = man.isBan(serverName); 	// récupération de ban ou pas du joueur				
 		        if(isBan) {
 		        	//si ban
 		        	outMessage.writeBoolean(true);	// true pour ban
