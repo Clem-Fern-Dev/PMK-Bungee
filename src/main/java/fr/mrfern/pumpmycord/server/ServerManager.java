@@ -116,6 +116,11 @@ public class ServerManager {
 	}
 	
 	public String getAuthorUUID(String serverName) {
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+				return entry.getValue().getAuthor_UUID();
+			}
+		}
 		return "none";
 	}
 
