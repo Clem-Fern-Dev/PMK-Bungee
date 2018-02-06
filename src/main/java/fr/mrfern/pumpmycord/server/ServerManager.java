@@ -179,7 +179,11 @@ public class ServerManager {
 	}
 
 	public int getDay_end(String serverName) {
-		// TODO Auto-generated method stub
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+				return entry.getValue().getDay_end();
+			}
+		}
 		return 0;
 	}
 
