@@ -13,7 +13,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 public class ServerManager {
 	
 	private ProxiedPlayer p;
-	private HashMap<String,BanData> banDataList;
+	private HashMap<String,BanData> banDataList = new HashMap<>();
 
 	public ServerManager(ProxiedPlayer player) {
 		setP(player);
