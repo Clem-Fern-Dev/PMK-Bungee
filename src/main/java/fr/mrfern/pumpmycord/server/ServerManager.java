@@ -143,7 +143,11 @@ public class ServerManager {
 	}
 
 	public int getHour(String serverName) {
-		// TODO Auto-generated method stub
+		for (Entry<String, BanData> entry : banDataList.entrySet()) {
+			if(entry.getKey().equals(serverName) | entry.getKey().equals("global")) {
+				return entry.getValue().getHour();
+			}
+		}
 		return 0;
 	}
 
