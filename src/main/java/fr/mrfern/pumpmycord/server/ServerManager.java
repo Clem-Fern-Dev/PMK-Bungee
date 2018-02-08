@@ -17,7 +17,7 @@ public class ServerManager {
 
 	public ServerManager(ProxiedPlayer player) {
 		setP(player);
-		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `player_ban` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
+		ResultSet listRS = new MySQLConnector().sendQuery("SELECT `ban_ID` FROM `ban_player` WHERE `player_UUID`='" + p.getUniqueId() +"'");	// commande pour récupérer les ids de ban correspondant à ce UUID
 		List<Integer> banIDList = new ArrayList<>();	// Instanciation de la liste de ban
 		
 		// récupération du contenu de la table
